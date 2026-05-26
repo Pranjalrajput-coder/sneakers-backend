@@ -6,6 +6,7 @@ import com.sneaker.backend.dto.SignupRequestDto;
 import com.sneaker.backend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+
+public class AuthController{
 
     @Autowired
     private AuthService authService;
@@ -33,7 +35,7 @@ public class AuthController {
        try {
            return ResponseEntity.ok(authService.login(loginRequestDto));
        }
-       catch (Exception e){
+       catch (UsernameNotFoundException e){
            return ResponseEntity.notFound().build();
        }
     }
