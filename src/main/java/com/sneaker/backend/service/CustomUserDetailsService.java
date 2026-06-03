@@ -1,6 +1,5 @@
 package com.sneaker.backend.service;
 
-import com.sneaker.backend.entities.UserEntity;
 import com.sneaker.backend.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

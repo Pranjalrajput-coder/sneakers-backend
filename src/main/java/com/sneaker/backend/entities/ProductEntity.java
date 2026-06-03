@@ -3,7 +3,6 @@ package com.sneaker.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.net.URL;
 import java.util.List;
 
 @Entity
@@ -21,7 +20,7 @@ public class ProductEntity {
 
     private String name;
     private String brand;
-    private double price;
+    private Double price;
     private String description;
     private String imageUrl;
     private String category;

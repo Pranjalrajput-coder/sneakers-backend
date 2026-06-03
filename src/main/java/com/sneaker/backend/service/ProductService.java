@@ -3,7 +3,6 @@ package com.sneaker.backend.service;
 import com.sneaker.backend.dto.ProductRequestDto;
 import com.sneaker.backend.dto.ProductResponseDto;
 import com.sneaker.backend.entities.ProductEntity;
-//import com.sneaker.backend.entities.ProductSize;
 import com.sneaker.backend.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
