@@ -38,6 +38,7 @@ public class CartWishlistService {
 
 
     // TODO : Optimize the Queries
+    // TODO : RIGHT NOW ITS NOT THREAD SAFE 😞
 
     public String addToCart(Long productId, Integer size){
 
