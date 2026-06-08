@@ -13,6 +13,14 @@ public interface CartRepo extends JpaRepository<CartEntity, Long>{
     List<CartEntity> findAllByProductIdAndUserId(Long productId, Long userId);
     List<CartEntity> findByUserId(Long userId);
 
+
+    @Query("""
+            SELECT c
+            FROM CartEntity c
+            WHERE c.userId = :userId
+            """)
+    Long getCartIdForPlacingOrder(Long userId);
+
     @Query("""
             SELECT c
             FROM CartEntity c

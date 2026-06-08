@@ -3,7 +3,7 @@ package com.sneaker.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Entity
 @NoArgsConstructor
@@ -24,11 +24,12 @@ public class ProductEntity {
     private String description;
     private String imageUrl;
     private String category;
-    private Integer stock;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "size")
-    private List<String> sizes;
+    @CollectionTable(name = "product_sizes",
+        joinColumns = @JoinColumn(name = "product_id"))
+    @MapKeyColumn(name = "size")
+    @Column(name = "stock")
+    private Map<String, Integer> sizeStock;
 
 }

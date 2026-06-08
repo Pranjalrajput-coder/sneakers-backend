@@ -26,7 +26,7 @@ public class CartWishlistController {
             String status = cartWishlistService.addToCart(productId,size);
             return ResponseEntity.ok(status);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Failed to add to cart");
         }
     }
 
@@ -66,7 +66,7 @@ public class CartWishlistController {
         try {
             return ResponseEntity.ok(cartWishlistService.addInWishlist(productId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Product already in wishlist");
         }
     }
 

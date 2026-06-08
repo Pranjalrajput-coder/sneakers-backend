@@ -60,8 +60,7 @@ public class ProductService {
                 .category(request.getCategory())
                 .description(request.getDescription())
                 .imageUrl(request.getImageUrl())
-                .stock(request.getStock())
-                .sizes(request.getSizes())
+                .sizeStock(request.getSizeStock())
                 .build();
 
         productRepo.save(productEntity);

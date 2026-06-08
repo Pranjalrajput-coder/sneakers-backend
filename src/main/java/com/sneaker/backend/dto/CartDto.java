@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDto {
-    private Long userId;
     private Long productId;
 
     // Just Have These for Response

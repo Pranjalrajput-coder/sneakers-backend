@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +20,5 @@ public class ProductResponseDto {
     private String description;
     private String imageUrl;
     private String category;
-    private List<String> sizes;
-    private Integer stock;
+    private Map<String, Integer> sizeStock;
 }

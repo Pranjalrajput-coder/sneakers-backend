@@ -32,6 +32,8 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRoles userRoles;
 
+    private Double userWallet;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
