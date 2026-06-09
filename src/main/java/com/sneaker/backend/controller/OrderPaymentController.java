@@ -18,7 +18,9 @@ public class OrderPaymentController {
     @Autowired
     private OrderPaymentService orderPaymentService;
 
-    // TODO : FIX THE RESPONSE PART and Qty updation
+    // TODO: ENTITIES SHOULD BE EASY TO UNDERSTAND
+    // TODO: @Transcational i think not working
+    // TODO: DB QUERIES SHOULD BE LESS
 
     @PostMapping("/order/place")
     public ResponseEntity<PlacedOrderDto> placeOrder(@RequestBody PlacingOrderDto placingOrderDto) {
@@ -26,6 +28,7 @@ public class OrderPaymentController {
             PlacedOrderDto placedOrderDto = orderPaymentService.placeOrder(placingOrderDto);
             return ResponseEntity.ok(placedOrderDto);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -37,6 +40,7 @@ public class OrderPaymentController {
             OrderHistoryDto orderHistoryDto = orderPaymentService.getOrderHistory(orderId);
             return ResponseEntity.ok(orderHistoryDto);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -48,7 +52,8 @@ public class OrderPaymentController {
             List<OrderHistoryDto> orderHistoryDto = orderPaymentService.getMyOrders();
             return ResponseEntity.ok(orderHistoryDto);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -59,6 +64,7 @@ public class OrderPaymentController {
             PlacedOrderDto status = orderPaymentService.refundOrder(orderId);
             return ResponseEntity.ok(status);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

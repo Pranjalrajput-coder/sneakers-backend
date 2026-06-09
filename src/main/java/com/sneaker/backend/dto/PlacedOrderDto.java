@@ -1,7 +1,5 @@
 package com.sneaker.backend.dto;
 
-import com.sneaker.backend.entities.CartEntity;
-import com.sneaker.backend.entities.OrderItemsEntity;
 import lombok.*;
 
 import java.util.List;
@@ -17,6 +15,6 @@ public class PlacedOrderDto {
     private String paymentMode;
     private String address;
     private Double totalAmount;
-    private List<OrderItemsEntity> orderItems;
+    private List<OrderItemsDto> orderItems;
 
 }

@@ -120,7 +120,23 @@ public class OrderPaymentService {
             orderRepo.save(ordersEntity);
             }
 
-        return mapper.map(ordersEntity, PlacedOrderDto.class);
+
+        PlacedOrderDto placedOrderDto =
+                mapper.map(ordersEntity, PlacedOrderDto.class);
+        List<OrderItemsDto> items =
+                ordersEntity.getOrderItems()
+                        .stream()
+                        .map(item -> {
+                            OrderItemsDto orderItemsDto = mapper.map(item, OrderItemsDto.class);
+                            orderItemsDto.setProductQty(item.getQuantity());
+                            orderItemsDto.setProductSize(String.valueOf(item.getSize()));
+                            return orderItemsDto;
+                        })
+                        .toList();
+        placedOrderDto.setOrderItems(items);
+
+        return placedOrderDto;
+
     }
 
     public PaymentStatus doPayment(Double amount, PaymentMode paymentMode, Long orderId){
@@ -154,16 +170,41 @@ public class OrderPaymentService {
     public OrderHistoryDto getOrderHistory(Long orderId){
         OrdersEntity ordersEntity = orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
-        return mapper.map(ordersEntity,OrderHistoryDto.class);
+        OrderHistoryDto orderHistoryDto = mapper.map(ordersEntity,OrderHistoryDto.class);
+        List<OrderItemsDto> items =
+                ordersEntity.getOrderItems()
+                        .stream()
+                        .map(item -> {
+                            OrderItemsDto orderItemsDto = mapper.map(item, OrderItemsDto.class);
+                            orderItemsDto.setProductQty(item.getQuantity());
+                            orderItemsDto.setProductSize(String.valueOf(item.getSize()));
+                            return orderItemsDto;
+                        })
+                        .toList();
+        orderHistoryDto.setOrderItems(items);
+        return orderHistoryDto;
     }
 
     public List<OrderHistoryDto> getMyOrders(){
         List<OrdersEntity> ordersEntity = orderRepo.findByUserId(helper.getCurrentUserId());
 
-
         return ordersEntity.stream()
-                .map(getUserOrderList -> mapper.map(getUserOrderList,OrderHistoryDto.class))
-                .toList();
+                .map(order -> {
+                    OrderHistoryDto dto = mapper.map(order, OrderHistoryDto.class);
+                    dto.setOrderDate(order.getCreatedAt().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+
+                    List<OrderItemsDto> items =
+                            order.getOrderItems()
+                                    .stream()
+                                    .map(item -> {
+                                        OrderItemsDto itemDto = mapper.map(item, OrderItemsDto.class);
+                                        itemDto.setProductSize(String.valueOf(item.getSize()));
+                                        itemDto.setProductQty(item.getQuantity());
+                                        return itemDto;
+                                    }).toList();
+                    dto.setOrderItems(items);
+                    return dto;
+                }).toList();
     }
 
     private PaymentStatus callExternalUpiGateway(Long orderId, Double amount) {
